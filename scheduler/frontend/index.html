@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Light Scheduler</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    label {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input[type="time"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #28a745;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Light Scheduler</h1>
+  <form id="schedule-form">
+    <label for="on-time">ON Time:</label>
+    <input type="time" id="on-time" name="on-time" required />
+
+    <label for="off-time">OFF Time:</label>
+    <input type="time" id="off-time" name="off-time" required />
+
+    <button type="submit">Submit Schedule</button>
+  </form>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8765');
+
+    document.getElementById('schedule-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const onTime = document.getElementById('on-time').value;
+      const offTime = document.getElementById('off-time').value;
+      const message = JSON.stringify({ on: onTime, off: offTime });
+      ws.send(message);
+      alert("Schedule sent!");
+    });
+  </script>
+</body>
+</html>
