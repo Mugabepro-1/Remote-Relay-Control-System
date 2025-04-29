@@ -49,4 +49,4 @@ The Arduino listens for messages in the format `HH:MM,HH:MM\n` (ON and OFF times
 ## 📸 Screenshots
 
 **Web Dashboard**
-![Web UI](screenshots/ui.png)
+![Web UI](/scheduler/screenshots/ui.png)
